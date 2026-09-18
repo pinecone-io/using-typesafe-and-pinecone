@@ -6,7 +6,8 @@ description: Record or re-record the demo GIF for an example in this repo — dr
 # Recording a demo GIF
 
 Each example owns a script at `src/scripts/record-demo.ts` that drives the app, records video, and
-converts it to `docs/demo.gif`. Run it from the example directory with the dev server already up:
+writes both `docs/demo.gif` (for the README) and `docs/demo.mp4` (for social posts, where the GIF
+is both far larger and worse — platforms transcode it anyway). Run it from the example directory with the dev server already up:
 
 ```bash
 npm run record-demo
@@ -59,7 +60,9 @@ change is the most common failure.
 
 ## Size
 
-Around 2MB for 7-8 seconds is normal and fine for GitHub. If it needs to be smaller, cut duration
+Around 2MB for 7-8 seconds is normal and fine for GitHub; the MP4 of the same run lands nearer
+400KB. Social platforms need H.264 with `yuv420p` and even pixel dimensions — both fail silently,
+producing a file that encodes cleanly and then will not play. If it needs to be smaller, cut duration
 first, then `OUT_WIDTH`, then colors. The palette settings are tuned for flat UI —
 `palettegen=max_colors=128` with `paletteuse=dither=none` compresses a screen recording far better
 than dithering, which adds noise that GIF cannot compress.

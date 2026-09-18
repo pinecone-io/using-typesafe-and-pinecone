@@ -14,7 +14,9 @@ declare global {
 const URL = process.env.DEMO_URL ?? "http://localhost:3000";
 const PRESET = process.env.DEMO_PRESET ?? "Midwest and very colorful";
 const STOP = process.env.DEMO_STOP === "claude" ? "claude" : "typesafe";
-const OUT = path.join(EXAMPLE_ROOT, "docs", STOP === "claude" ? "demo-full.gif" : "demo.gif");
+const BASENAME = STOP === "claude" ? "demo-full" : "demo";
+const OUT = path.join(EXAMPLE_ROOT, "docs", `${BASENAME}.gif`);
+const OUT_MP4 = path.join(EXAMPLE_ROOT, "docs", `${BASENAME}.mp4`);
 const WORK = path.join(EXAMPLE_ROOT, ".demo-frames");
 
 const WIDTH = 1180;
@@ -124,9 +126,35 @@ async function main(): Promise<void> {
     OUT,
   ]);
 
+  /**
+   * H.264 needs even dimensions, hence scale=-2, and social platforms will not inline a video
+   * without yuv420p. Both fail silently: the file encodes but will not play.
+   */
+  ffmpeg([
+    "-y",
+    "-i",
+    webm,
+    "-vf",
+    `fps=30,scale=${OUT_WIDTH}:-2:flags=lanczos`,
+    "-c:v",
+    "libx264",
+    "-preset",
+    "slow",
+    "-crf",
+    "20",
+    "-pix_fmt",
+    "yuv420p",
+    "-movflags",
+    "+faststart",
+    "-an",
+    OUT_MP4,
+  ]);
+
   fs.rmSync(WORK, { recursive: true, force: true });
-  const kb = (fs.statSync(OUT).size / 1024).toFixed(0);
-  console.log(`${path.relative(EXAMPLE_ROOT, OUT)} — ${duration(OUT)}s, ${kb} KB`);
+  for (const file of [OUT, OUT_MP4]) {
+    const kb = (fs.statSync(file).size / 1024).toFixed(0);
+    console.log(`${path.relative(EXAMPLE_ROOT, file)} — ${duration(file)}s, ${kb} KB`);
+  }
 }
 
 function ffmpeg(args: string[]): void {
