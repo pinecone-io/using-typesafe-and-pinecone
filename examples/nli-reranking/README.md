@@ -116,7 +116,7 @@ two-column layout. `CLAUDE_BASELINE=off` forces the same with a key present.
 | `npm run ingest`      | Create the index and load the corpus (`--recreate`, `--sample N`, `--create-only`) |
 | `npm run compare`     | Run presets or a custom query in the terminal                                      |
 | `npm run check`       | Typecheck, lint, format, tests — offline, spends nothing                           |
-| `npm run record-demo` | Re-record `docs/demo.gif` (needs the dev server and `ffmpeg`)                      |
+| `npm run record-demo` | Re-record `docs/demo.gif` and `docs/demo.mp4` (needs the dev server and `ffmpeg`)  |
 
 ## Layout
 
