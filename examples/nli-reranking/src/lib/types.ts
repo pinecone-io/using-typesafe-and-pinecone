@@ -50,5 +50,5 @@ export interface ComparisonResult {
   candidateCount: number;
   retrievalMs: number;
   typesafe: RerankResult;
-  claude: RerankResult;
+  claude?: RerankResult;
 }
