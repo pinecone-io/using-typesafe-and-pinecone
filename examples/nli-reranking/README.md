@@ -1,10 +1,15 @@
 # nli-reranking
 
+**[Try it live →](https://using-typesafe-and-pinecone.vercel.app/)**
+
 Pinecone full-text search retrieves 200 bird articles; TypeSafe's Jev model reranks them to 10
 against criteria you write in plain English. A Claude baseline does the same job in one
 long-context call, for comparison. No embeddings anywhere.
 
 ![Clicking a preset, prefilling the query, and reranking 200 candidates](docs/demo.gif)
+
+The hosted demo runs without an Anthropic key, so it shows two columns rather than the three in the
+recording above. Everything else is the same.
 
 ## Quickstart
 
