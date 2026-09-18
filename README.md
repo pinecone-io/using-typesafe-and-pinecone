@@ -1,5 +1,7 @@
 # using-typesafe-and-pinecone
 
+**[Try the live demo →](https://using-typesafe-and-pinecone.vercel.app/)**
+
 A collection of examples using TypeSafe's Jev model and Pinecone together. Each one is self-contained, with its own `package.json` and its own
 deploy, and shares the API keys in the repo-root `.env`.
 
