@@ -1,0 +1,25 @@
+name: Request an example
+description: Ask for an example combining Pinecone retrieval with a TypeSafe judgment.
+labels: ["example-request"]
+body:
+  - type: textarea
+    id: retrieval
+    attributes:
+      label: What are you retrieving?
+      description: The corpus and how you search it today — full-text, dense, sparse, hybrid.
+    validations:
+      required: true
+  - type: textarea
+    id: judgment
+    attributes:
+      label: What judgment do you need?
+      description: What has to be decided before or after retrieval — routing, filtering, reranking, a pass/fail gate.
+    validations:
+      required: true
+  - type: textarea
+    id: shortfall
+    attributes:
+      label: Why doesn't retrieval alone answer it?
+      description: Negation, degree, compound constraints, something a similarity score can't express.
+    validations:
+      required: true

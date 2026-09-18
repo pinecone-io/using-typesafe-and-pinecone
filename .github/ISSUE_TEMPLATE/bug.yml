@@ -1,0 +1,23 @@
+name: Bug report
+description: Something in an example doesn't work.
+labels: ["bug"]
+body:
+  - type: input
+    id: example
+    attributes:
+      label: Which example?
+      placeholder: examples/nli-reranking
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: What did you run, and what happened?
+      description: The command, the output, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Node version, OS, and whether `npm run check` passes.

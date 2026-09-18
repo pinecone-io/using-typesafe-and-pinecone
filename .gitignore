@@ -2,9 +2,12 @@
 node_modules/
 
 # Build output
+.next/
+out/
 dist/
 build/
 *.tsbuildinfo
+next-env.d.ts
 
 # Environment
 .env
@@ -19,3 +22,6 @@ npm-debug.log*
 .DS_Store
 .idea/
 .vscode/
+
+# Demo capture scratch
+.demo-frames/

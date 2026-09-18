@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Pinecone Discord
+    url: https://discord.gg/pinecone
+    about: Questions and help — faster than an issue for anything not a bug or a request.
