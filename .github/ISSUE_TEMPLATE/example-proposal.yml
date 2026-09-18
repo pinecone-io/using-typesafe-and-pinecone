@@ -1,0 +1,25 @@
+name: Propose an example
+description: You want to build and contribute a new example.
+labels: ["example-proposal"]
+body:
+  - type: textarea
+    id: shows
+    attributes:
+      label: What does it show?
+      description: The pattern it demonstrates, and what it shows that the existing examples don't.
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Proposed directory
+      placeholder: examples/my-example
+    validations:
+      required: true
+  - type: textarea
+    id: shape
+    attributes:
+      label: Shape
+      description: Stack, what it needs to run, roughly what it costs per run, and any index it has to ingest first.
+    validations:
+      required: true

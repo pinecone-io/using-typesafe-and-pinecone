@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nli-reranking",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "examples/nli-reranking",
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}
