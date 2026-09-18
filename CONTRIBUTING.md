@@ -19,12 +19,14 @@ We may reject pull requests that are created without issues!
 ## Pull requests
 
 Every change reaches `main` through a pull request, and every pull request needs a review from
-[@arjunpatel7](https://github.com/arjunpatel7) before it merges. 
+[@arjunpatel7](https://github.com/arjunpatel7) before it merges.
 Before you open one:
 
 ```bash
+node scripts/check-examples.mjs   # repo conventions
+
 cd examples/<example>
-npm run check    # typecheck, lint, format, tests — no API calls, no credits spent
+npm run check                     # typecheck, lint, format, tests — no credits spent
 npm run build
 ```
 
@@ -34,7 +36,7 @@ In the PR description, link the issue, say what you changed, and note anything y
 
 ## Adding a new example
 
-***Be sure to first open an issue and wait for a maintainer to review before adding a new example!*
+**_Be sure to first open an issue and wait for a maintainer to review before adding a new example!_
 
 1. Create `examples/<your-example>/` with its own `package.json`. Examples are self-contained and
    don't import from each other.
@@ -42,10 +44,19 @@ In the PR description, link the issue, say what you changed, and note anything y
    table in the root `README.md`.
 3. Provide the same scripts the existing example does, so CI and contributors find what they
    expect: `check`, `build`, `test`, `typecheck`, `lint`, `format`.
-4. Add your example to the `matrix.example` list in
-   [`.github/workflows/ci.yml`](.github/workflows/ci.yml), or CI won't run it.
+4. Add a `README.md` so clicking into the directory lands somewhere.
 5. Add a section to the root `README.md`.
-6. Add a demo gif if possible! We have a skill that can help with this in the repo!
+
+CI discovers examples automatically — any directory under `examples/` with a `package.json` gets
+its own job. There is no list to update.
+
+Check your example follows the conventions before pushing:
+
+```bash
+node scripts/check-examples.mjs
+```
+
+It verifies the required scripts, exactly pinned dependencies, a committed lockfile, and a README. 6. Add a demo gif if possible! We have a skill that can help with this in the repo!
 
 ## House rules
 

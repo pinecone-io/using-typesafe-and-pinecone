@@ -21,26 +21,29 @@ function report(label: string, r: ComparisonResult): void {
   console.log(
     `  TypeSafe ${ts.unavailable ?? `${ts.ms} ms · ${formatCost(ts.costUsd)} · ${ts.inputTokens} in`}`,
   );
-  console.log(
-    `  Claude   ${cl.unavailable ?? `${cl.ms} ms · ${formatCost(cl.costUsd)} · ${cl.inputTokens} in / ${cl.outputTokens} out`}`,
-  );
+  if (cl) {
+    console.log(
+      `  Claude   ${cl.unavailable ?? `${cl.ms} ms · ${formatCost(cl.costUsd)} · ${cl.inputTokens} in / ${cl.outputTokens} out`}`,
+    );
+  }
 
   const top = ts.ranked[0];
   if (top && top.score < LOW_CONFIDENCE_THRESHOLD) {
     console.log(`\n  ⚠ No strong matches (top score ${top.score.toFixed(2)}).`);
   }
 
-  console.log(`\n  ${pad("#", 3)}${pad("BM25 (lexical)", 30)}${pad("TypeSafe", 34)}Claude`);
+  const claudeCol = cl ? "Claude" : "";
+  console.log(`\n  ${pad("#", 3)}${pad("BM25 (lexical)", 30)}${pad("TypeSafe", 34)}${claudeCol}`);
   console.log(`  ${"─".repeat(90)}`);
   for (let i = 0; i < 10; i++) {
     const bm = r.candidates[i];
     const t = ts.ranked[i];
-    const c = cl.ranked[i];
+    const c = cl?.ranked[i];
     console.log(
       `  ${pad(String(i + 1), 3)}${pad(bm?.name ?? "—", 30)}${pad(
         t ? `${t.name} (${t.score.toFixed(2)})` : "—",
         34,
-      )}${c?.name ?? "—"}`,
+      )}${cl ? (c?.name ?? "—") : ""}`,
     );
   }
 }

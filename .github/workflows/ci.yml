@@ -5,12 +5,46 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  conventions:
+    name: conventions
+    runs-on: ubuntu-latest
+    outputs:
+      examples: ${{ steps.discover.outputs.examples }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/check-examples.mjs
+      - id: discover
+        name: Discover examples
+        run: |
+          node -e '
+            const fs = require("fs");
+            const names = fs.readdirSync("examples").filter((n) =>
+              fs.existsSync(`examples/${n}/package.json`)
+            );
+            if (names.length === 0) {
+              console.error("No examples found under examples/");
+              process.exit(1);
+            }
+            console.log("Discovered:", names.join(", "));
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `examples=${JSON.stringify(names)}\n`);
+          '
+
   check:
+    name: check
+    needs: conventions
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        example: [nli-reranking]
+        example: ${{ fromJSON(needs.conventions.outputs.examples) }}
     defaults:
       run:
         working-directory: examples/${{ matrix.example }}

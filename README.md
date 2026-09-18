@@ -48,8 +48,9 @@ npm run dev
 npm run check   # typecheck, lint, format, tests — no API calls, no credits spent
 ```
 
-CI runs `check` and `build` for every example in [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
-Add a new example under `examples/` and add it to the `matrix.example` list there.
+CI discovers every directory under `examples/` with a `package.json` and runs `check` and `build`
+for each, so a new example is picked up with no workflow edit. `node scripts/check-examples.mjs`
+runs the same conventions check locally.
 
 Re-record the demo GIF with the dev server running (needs `ffmpeg`):
 
